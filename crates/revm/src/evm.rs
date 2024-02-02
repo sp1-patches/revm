@@ -297,7 +297,7 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
         // Reward beneficiary
         hndl.post_execution().reward_beneficiary(ctx, &gas)?;
         // Returns output of transaction.
-        let reuslt = hndl
+        let result = hndl
             .post_execution()
             .output(ctx, result.result, main_output, &gas);
         println!("cycle-tracker-end: finalize");
