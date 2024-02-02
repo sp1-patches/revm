@@ -206,7 +206,9 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
         // peek last stack frame.
         let mut stack_frame = call_stack.last_mut().unwrap();
 
+        let mut count = 0;
         loop {
+            count += 1;
             // run interpreter
             let action = stack_frame
                 .interpreter
@@ -244,6 +246,7 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
                         &mut shared_memory,
                         result,
                     ) {
+                        println!("loop count: {}", count);
                         return result;
                     }
                     stack_frame = call_stack.last_mut().unwrap();
