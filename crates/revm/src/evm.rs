@@ -266,7 +266,6 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
         let hndl = &mut self.handler;
         let ctx = &mut self.context;
 
-        println!("cycle-tracker-start: inner init");
         // load access list and beneficiary if needed.
         hndl.pre_execution().load_accounts(ctx)?;
 
@@ -280,14 +279,10 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
         let first_frame = hndl
             .execution_loop()
             .create_first_frame(ctx, ctx.evm.env.tx.gas_limit - initial_gas_spend);
-        println!("cycle-tracker-end: inner init");
 
         // Starts the main running loop.
-        println!("cycle-tracker-start: loop");
         let (result, main_output) = self.start_the_loop(first_frame);
-        println!("cycle-tracker-end: loop");
 
-        println!("cycle-tracker-start: finalize");
         let hndl = &mut self.handler;
         let ctx = &mut self.context;
 
@@ -303,7 +298,6 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
         let result = hndl
             .post_execution()
             .output(ctx, result.result, main_output, &gas);
-        println!("cycle-tracker-end: finalize");
         result
     }
 }

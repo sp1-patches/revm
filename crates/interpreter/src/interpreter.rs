@@ -281,9 +281,15 @@ impl Interpreter {
         self.instruction_result = InstructionResult::Continue;
         self.shared_memory = shared_memory;
         // main loop
+
+        let mut count = 0;
+        println!("cycle-tracker-start: step");
         while self.instruction_result == InstructionResult::Continue {
+            count += 1;
             self.step(instruction_table, host);
         }
+        println!("cycle-tracker-end: step");
+        println!("op count: {}", count);
 
         // Return next action if it is some.
         if let Some(action) = self.next_action.take() {
