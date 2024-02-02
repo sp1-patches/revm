@@ -46,8 +46,8 @@ checksum = "0942ffc6dcaadf03badf6e6a2d0228460359d5e34b57ccdc720b7382dfbd5ec5"
 
 [[package]]
 name = "alloy-primitives"
-version = "0.6.0"
-source = "git+https://github.com/succinctlabs/alloy-core-private?branch=patch-v0.6.0#d1bee667943859badcc5d98d10179ed1ee62c189"
+version = "0.6.2"
+source = "git+https://github.com/succinctlabs/alloy-core-private?branch=patch-v0.6.2#8884619d9fc0f28344d015752985863afbeaeeba"
 dependencies = [
  "alloy-rlp",
  "arbitrary",

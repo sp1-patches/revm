@@ -20,7 +20,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 #alloy-primitives = { version = "0.6", default-features = false, features = [
 #    "rlp",
 #] }
-alloy-primitives = { git = "https://github.com/succinctlabs/alloy-core-private", package = "alloy-primitives", features=["rlp"], branch = "patch-v0.6.0" }
+alloy-primitives = { git = "https://github.com/succinctlabs/alloy-core-private", package = "alloy-primitives", features=["rlp"], branch = "patch-v0.6.2" }
 hashbrown = "0.14"
 auto_impl = "1.1"
 bitvec = { version = "1", default-features = false, features = ["alloc"] }
