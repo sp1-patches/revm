@@ -15,7 +15,7 @@ pub fn keccak256<H: Host>(interpreter: &mut Interpreter, _host: &mut H) {
         shared_memory_resize!(interpreter, from, len);
         println!("cycle-tracker-start: keccak");
         let res = crate::primitives::keccak256(interpreter.shared_memory.slice(from, len));
-        println!("cycle-tracker-start: keccak");
+        println!("cycle-tracker-end: keccak");
         res
     };
 
