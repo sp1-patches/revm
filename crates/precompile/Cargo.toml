@@ -30,6 +30,8 @@ secp256k1 = { version = "0.28.1", default-features = false, features = [
     "alloc",
     "recovery",
 ], optional = true }
+succinct-zkvm = { git = "https://github.com/succinctlabs/vm" }
+anyhow = "1.0.79"
 
 
 [features]
