@@ -8,12 +8,33 @@ pub const ECRECOVER: PrecompileWithAddress = PrecompileWithAddress(
     Precompile::Standard(ec_recover_run as StandardPrecompileFn),
 );
 
-#[cfg(not(feature = "secp256k1"))]
+#[cfg(all(target_os = "zkvm", target_vendor = "succinct"))]
+#[allow(clippy::module_inception)]
+mod secp256k1 {
+
+    use crate::B256;
+    // Silence the unused crate dependency warning.
+    use k256 as _;
+
+    pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, anyhow::Error> {
+        let res = succinct_zkvm::precompiles::secp256k1::ecrecover(sig, msg);
+        res.map(|b| B256::from_slice(&b))
+    }
+}
+
+#[cfg(all(
+    not(all(target_os = "zkvm", target_vendor = "succinct")),
+    not(feature = "secp256k1")
+))]
 #[allow(clippy::module_inception)]
 mod secp256k1 {
     use crate::B256;
     use k256::ecdsa::{Error, RecoveryId, Signature, VerifyingKey};
     use revm_primitives::keccak256;
+
+    // Silence the unused crate dependency warning.
+    use anyhow as _;
+    use succinct_zkvm as _;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, Error> {
         // parse signature
@@ -42,7 +63,10 @@ mod secp256k1 {
     }
 }
 
-#[cfg(feature = "secp256k1")]
+#[cfg(all(
+    not(all(target_os = "zkvm", target_vendor = "succinct")),
+    feature = "secp256k1"
+))]
 #[allow(clippy::module_inception)]
 mod secp256k1 {
     use crate::B256;
@@ -53,7 +77,9 @@ mod secp256k1 {
     };
 
     // Silence the unused crate dependency warning.
+    use anyhow as _;
     use k256 as _;
+    use succinct_zkvm as _;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, secp256k1::Error> {
         let sig =
