@@ -13,12 +13,19 @@ pub const ECRECOVER: PrecompileWithAddress = PrecompileWithAddress(
 mod secp256k1 {
 
     use crate::B256;
+    use revm_primitives::keccak256;
+
     // Silence the unused crate dependency warning.
     use k256 as _;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, anyhow::Error> {
-        let res = succinct_zkvm::precompiles::secp256k1::ecrecover(sig, msg);
-        res.map(|b| B256::from_slice(&b))
+        let recovered_key = succinct_zkvm::precompiles::secp256k1::ecrecover(sig, msg)?;
+
+        let mut hash = keccak256(&recovered_key[1..]);
+
+        // truncate to 20 bytes
+        hash[..12].fill(0);
+        Ok(hash)
     }
 }
 
