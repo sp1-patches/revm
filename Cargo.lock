@@ -2421,8 +2421,8 @@ dependencies = [
  "ripemd",
  "secp256k1",
  "sha2",
+ "sp1-zkvm",
  "substrate-bn",
- "succinct-zkvm",
 ]
 
 [[package]]
@@ -2943,6 +2943,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "sp1-zkvm"
+version = "0.1.0"
+source = "git+https://github.com/succinctlabs/sp1#b525fa80fa02efcae7883797544b6329043612ca"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "cfg-if",
+ "getrandom",
+ "k256",
+ "rand",
+ "serde",
+]
+
+[[package]]
 name = "spin"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3040,20 +3054,6 @@ name = "subtle"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "81cdd64d312baedb58e21336b31bc043b77e01cc99033ce76ef539f78e965ebc"
-
-[[package]]
-name = "succinct-zkvm"
-version = "0.1.0"
-source = "git+https://github.com/succinctlabs/vm#7bda96617963f7d67b1a4606d52fe8a715460023"
-dependencies = [
- "anyhow",
- "bincode",
- "cfg-if",
- "getrandom",
- "k256",
- "rand",
- "serde",
-]
 
 [[package]]
 name = "syn"
