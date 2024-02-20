@@ -26,10 +26,6 @@ c-kzg = { version = "0.4.0", default-features = false, optional = true }
 
 # ecRecover precompile
 k256 = { version = "0.13.3", default-features = false, features = ["ecdsa"] }
-secp256k1 = { version = "0.28.1", default-features = false, features = [
-    "alloc",
-    "recovery",
-], optional = true }
 sp1-zkvm = { git = "https://github.com/succinctlabs/sp1", features = ["interface"] }
 anyhow = "1.0.79"
 
@@ -43,17 +39,9 @@ std = [
     "ripemd/std",
     "sha2/std",
     "c-kzg?/std",
-    "secp256k1?/std",
 ]
 asm-keccak = ["revm-primitives/asm-keccak"]
 
 optimism = ["revm-primitives/optimism"]
 
 # These libraries may not work on all no_std platforms as they depend on C.
-
-# Enables the KZG point evaluation precompile.
-c-kzg = ["dep:c-kzg", "revm-primitives/c-kzg"]
-# Use `secp256k1` as a faster alternative to `k256`.
-# The problem that `secp256k1` has is it fails to build for `wasm` target on Windows and Mac as it is c lib.
-# In Linux it passes. If you don't require to build wasm on win/mac, it is safe to use it and it is enabled by default.
-secp256k1 = ["dep:secp256k1"]
