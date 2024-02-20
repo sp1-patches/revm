@@ -15,7 +15,7 @@ mod secp256k1 {
     use revm_primitives::keccak256;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, anyhow::Error> {
-        let recovered_key = sp1_zkvm::precompiles::secp256k1::ecrecover(sig, msg)?;
+        let recovered_key = sp1_precompiles::secp256k1::ecrecover(sig, msg)?;
 
         let mut hash = keccak256(&recovered_key[1..]);
 
