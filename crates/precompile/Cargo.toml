@@ -35,7 +35,7 @@ anyhow = "1.0.79"
 
 
 [features]
-default = ["std", "c-kzg", "secp256k1"]
+default = ["std"]
 std = [
     "revm-primitives/std",
     "k256/std",
