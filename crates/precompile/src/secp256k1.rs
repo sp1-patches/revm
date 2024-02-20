@@ -15,14 +15,13 @@ mod secp256k1 {
     use revm_primitives::keccak256;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, anyhow::Error> {
-        todo!()
-        // let recovered_key = sp1_zkvm::precompiles::secp256k1::ecrecover(sig, msg)?;
+        let recovered_key = sp1_zkvm::precompiles::secp256k1::ecrecover(sig, msg)?;
 
-        // let mut hash = keccak256(&recovered_key[1..]);
+        let mut hash = keccak256(&recovered_key[1..]);
 
-        // // truncate to 20 bytes
-        // hash[..12].fill(0);
-        // Ok(hash)
+        // truncate to 20 bytes
+        hash[..12].fill(0);
+        Ok(hash)
     } 
 }
 
@@ -38,7 +37,7 @@ mod secp256k1 {
 
     // Silence the unused crate dependency warning.
     use anyhow as _;
-    // use sp1_zkvm as _;
+    use sp1_zkvm as _;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, Error> {
         // parse signature
@@ -83,7 +82,7 @@ mod secp256k1 {
     // Silence the unused crate dependency warning.
     use anyhow as _;
     use k256 as _;
-    // use sp1_zkvm as _;
+    use sp1_zkvm as _;
 
     pub fn ecrecover(sig: &[u8; 65], msg: &B256) -> Result<B256, secp256k1::Error> {
         let sig =
